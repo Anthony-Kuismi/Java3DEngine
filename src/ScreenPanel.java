@@ -11,7 +11,8 @@ public class ScreenPanel extends JPanel implements Runnable{
     Thread mainThread;
     Image image;
     Graphics graphics;
-    Point3D[] points = new Point3D[4];
+    Vertex3D[] vertexes = new Vertex3D[4];
+    Edge3D[] edges = new Edge3D[4];
 
     ScreenPanel(){
         this.setFocusable(true);
@@ -19,10 +20,19 @@ public class ScreenPanel extends JPanel implements Runnable{
         this.addMouseListener(new MouseList());
         this.setPreferredSize(SCREEN_SIZE);
 
-        points[0] = new Point3D(-50,-50,0);
-        points[1] = new Point3D(50,-50,0);
-        points[2] = new Point3D(50,50,0);
-        points[3] = new Point3D(-50,50,0);
+        vertexes[0] = new Vertex3D(-50,-50,0, 5, Color.BLUE,200,200);
+        vertexes[1] = new Vertex3D(50,-50,0, 5, Color.RED,200,200);
+        vertexes[2] = new Vertex3D(50,50,0, 5, Color.YELLOW,200,200);
+        vertexes[3] = new Vertex3D(-50,50,0, 5, Color.GREEN,200,200);
+
+        edges[0] = new Edge3D(vertexes[0],vertexes[1],10,Color.WHITE);
+        edges[1] = new Edge3D(vertexes[1],vertexes[2],10,Color.WHITE);
+        edges[2] = new Edge3D(vertexes[2],vertexes[3],10,Color.WHITE);
+        edges[3] = new Edge3D(vertexes[3],vertexes[0],10,Color.WHITE);
+
+        for(Vertex3D vertex: vertexes){
+            vertex.setAngularXVelocity(0.1);
+        }
 
         mainThread = new Thread(this);
         mainThread.start();
@@ -36,30 +46,20 @@ public class ScreenPanel extends JPanel implements Runnable{
     }
 
     public void draw(Graphics graphics){
-        graphics.setColor(Color.WHITE);
-        points[0].setZAngle(points[0].getZAngle()+.05);
-        points[1].setZAngle(points[1].getZAngle()+.05);
-        points[2].setZAngle(points[2].getZAngle()+.05);
-        points[3].setZAngle(points[3].getZAngle()+.05);
-
-        points[0].setXAngle(points[0].getXAngle()+.05);
-        points[1].setXAngle(points[1].getXAngle()+.05);
-        points[2].setXAngle(points[2].getXAngle()+.05);
-        points[3].setXAngle(points[3].getXAngle()+.05);
-
-        for(Point3D point: points){
-            graphics.fillOval((int)point.getXProjection()-5+getWidth()/2,(int)point.getYProjection()-5+getHeight()/2,10,10);
+        for(Edge3D edge: edges){
+            edge.draw(graphics);
         }
-        graphics.drawLine((int)points[0].getXProjection()+getWidth()/2,(int)points[0].getYProjection()+getHeight()/2,(int)points[1].getXProjection()+getWidth()/2,(int)points[1].getYProjection()+getHeight()/2);
-        graphics.drawLine((int)points[1].getXProjection()+getWidth()/2,(int)points[1].getYProjection()+getHeight()/2,(int)points[2].getXProjection()+getWidth()/2,(int)points[2].getYProjection()+getHeight()/2);
-        graphics.drawLine((int)points[2].getXProjection()+getWidth()/2,(int)points[2].getYProjection()+getHeight()/2,(int)points[3].getXProjection()+getWidth()/2,(int)points[3].getYProjection()+getHeight()/2);
-        graphics.drawLine((int)points[3].getXProjection()+getWidth()/2,(int)points[3].getYProjection()+getHeight()/2,(int)points[0].getXProjection()+getWidth()/2,(int)points[0].getYProjection()+getHeight()/2);
+        for(Vertex3D vertex: vertexes){
+            vertex.draw(graphics);
+        }
 
         Toolkit.getDefaultToolkit().sync();
     }
 
     public void update(){
-
+        for(Vertex3D vertex: vertexes){
+            vertex.update();
+        }
     }
 
     public void run(){
