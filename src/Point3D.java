@@ -1,10 +1,11 @@
 public class Point3D {
-    private double xAngle = 1;
-    private double yAngle = 1;
-    private double zAngle = 1;
+    private double xAngle = 0;
+    private double yAngle = 0;
+    private double zAngle = 0;
     private final double[][] projection = {
             {1, 0, 0},
-            {0, 1, 0}
+            {0, 1, 0},
+            {0, 0, 1}
     };
 
     private final double[][] rotationX = {
@@ -53,6 +54,7 @@ public class Point3D {
         double[][] projected = multiplyMatrix(projection, location);
         double[][] rotated = multiplyMatrix(rotationZ,projected);
         rotated = multiplyMatrix(rotationX,rotated);
+        rotated = multiplyMatrix(rotationY,rotated);
         return rotated[0][0];
     }
 
@@ -61,6 +63,7 @@ public class Point3D {
         double[][] projected = multiplyMatrix(projection, location);
         double[][] rotated = multiplyMatrix(rotationZ, projected);
         rotated = multiplyMatrix(rotationX,rotated);
+        rotated = multiplyMatrix(rotationY,rotated);
         return rotated[1][0];
     }
 

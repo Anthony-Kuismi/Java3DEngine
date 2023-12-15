@@ -21,9 +21,9 @@ public class Vertex3D {
     }
 
     public void update(){
-        point.setXAngle(point.getXAngle()+angularXVelocity);
-        point.setYAngle(point.getYAngle()+angularYVelocity);
-        point.setZAngle(point.getZAngle()+angularZVelocity);
+        setXAngle(point.getXAngle()+angularXVelocity);
+        setYAngle(point.getYAngle()+angularYVelocity);
+        setZAngle(point.getZAngle()+angularZVelocity);
     }
 
     public void draw(Graphics graphics){
@@ -53,5 +53,17 @@ public class Vertex3D {
         int y = (int)point.getYProjection();
         y+= offsetY;
         return y;
+    }
+
+    public void setXAngle(double angle){
+        point.setXAngle(angle);
+    }
+
+    public void setYAngle(double angle){
+        point.setYAngle(angle);
+    }
+
+    public void setZAngle(double angle){
+        point.setZAngle(angle);
     }
 }

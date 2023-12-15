@@ -11,28 +11,13 @@ public class ScreenPanel extends JPanel implements Runnable{
     Thread mainThread;
     Image image;
     Graphics graphics;
-    Vertex3D[] vertexes = new Vertex3D[4];
-    Edge3D[] edges = new Edge3D[4];
+    Cube cube = new Cube(200,200,100,Color.cyan);
 
     ScreenPanel(){
         this.setFocusable(true);
         this.addKeyListener(new KeyList());
         this.addMouseListener(new MouseList());
         this.setPreferredSize(SCREEN_SIZE);
-
-        vertexes[0] = new Vertex3D(-50,-50,0, 5, Color.BLUE,200,200);
-        vertexes[1] = new Vertex3D(50,-50,0, 5, Color.RED,200,200);
-        vertexes[2] = new Vertex3D(50,50,0, 5, Color.YELLOW,200,200);
-        vertexes[3] = new Vertex3D(-50,50,0, 5, Color.GREEN,200,200);
-
-        edges[0] = new Edge3D(vertexes[0],vertexes[1],10,Color.WHITE);
-        edges[1] = new Edge3D(vertexes[1],vertexes[2],10,Color.WHITE);
-        edges[2] = new Edge3D(vertexes[2],vertexes[3],10,Color.WHITE);
-        edges[3] = new Edge3D(vertexes[3],vertexes[0],10,Color.WHITE);
-
-        for(Vertex3D vertex: vertexes){
-            vertex.setAngularXVelocity(0.1);
-        }
 
         mainThread = new Thread(this);
         mainThread.start();
@@ -46,20 +31,12 @@ public class ScreenPanel extends JPanel implements Runnable{
     }
 
     public void draw(Graphics graphics){
-        for(Edge3D edge: edges){
-            edge.draw(graphics);
-        }
-        for(Vertex3D vertex: vertexes){
-            vertex.draw(graphics);
-        }
-
+        cube.draw(graphics);
         Toolkit.getDefaultToolkit().sync();
     }
 
     public void update(){
-        for(Vertex3D vertex: vertexes){
-            vertex.update();
-        }
+
     }
 
     public void run(){
