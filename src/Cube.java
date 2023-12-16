@@ -22,17 +22,21 @@ public class Cube {
         vertexes[7] = new Vertex3D(-offset,-offset,-offset,5,color,x,y);
 
         edges[0] = new Edge3D(vertexes[0],vertexes[1],10,color);
-        edges[1] = new Edge3D(vertexes[0],vertexes[1],10,color);
-        edges[2] = new Edge3D(vertexes[0],vertexes[1],10,color);
-        edges[3] = new Edge3D(vertexes[0],vertexes[1],10,color);
-        edges[4] = new Edge3D(vertexes[0],vertexes[1],10,color);
-        edges[5] = new Edge3D(vertexes[0],vertexes[1],10,color);
-        edges[6] = new Edge3D(vertexes[0],vertexes[1],10,color);
-        edges[7] = new Edge3D(vertexes[0],vertexes[1],10,color);
-        edges[8] = new Edge3D(vertexes[0],vertexes[1],10,color);
-        edges[9] = new Edge3D(vertexes[0],vertexes[1],10,color);
-        edges[10] = new Edge3D(vertexes[0],vertexes[1],10,color);
-        edges[11] = new Edge3D(vertexes[0],vertexes[1],10,color);
+        edges[1] = new Edge3D(vertexes[0],vertexes[2],10,color);
+        edges[2] = new Edge3D(vertexes[0],vertexes[4],10,color);
+
+        edges[3] = new Edge3D(vertexes[7],vertexes[3],10,color);
+        edges[4] = new Edge3D(vertexes[7],vertexes[5],10,color);
+        edges[5] = new Edge3D(vertexes[7],vertexes[6],10,color);
+
+        edges[6] = new Edge3D(vertexes[1],vertexes[3],10,color);
+        edges[7] = new Edge3D(vertexes[1],vertexes[5],10,color);
+
+        edges[8] = new Edge3D(vertexes[2],vertexes[3],10,color);
+        edges[9] = new Edge3D(vertexes[2],vertexes[6],10,color);
+
+        edges[10] = new Edge3D(vertexes[4],vertexes[5],10,color);
+        edges[11] = new Edge3D(vertexes[4],vertexes[6],10,color);
 
         updateAngle();
     }
